@@ -1,0 +1,4 @@
+SELECT * FROM hktuehk1_tutorcircle.cases
+	where status in (4, 6, 7)
+    and date >= '2022-09-01' and '2022-10-31'
+    order by date desc
