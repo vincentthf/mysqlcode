@@ -1,0 +1,31 @@
+SELECT * from -- can use 'count(*)' to count how many tutors
+(
+	SELECT phoneno as "Phone Number" FROM 
+	(
+		(
+			-- start: query all the active tutors (not unique)
+			SELECT * FROM hktuehk1_tutorcircle.case_tutor ct
+				where apply_date >= '2022-08-01'
+				and status in (3, 4, 5, 9)
+			-- end: query all the active tutors (not unique)
+			) activeTutors
+			join hktuehk1_tutorcircle.tutormas tm
+				on tutor_id = tm.tutorid
+			-- end: join tutor info
+		)
+			-- start: join case info
+			join hktuehk1_tutorcircle.cases c
+				on case_id = c.id
+			-- change the subject below
+			where ((c.subject = "homework" or c.subject_1 = "homework") or (c.subject = "all" or c.subject_1 = "all") )
+			-- change the grade below
+			and c.year in ('p4', 'p5', 'p6')
+			-- below is to find tutors who have applied and also have matched
+			and c.chosen_tutor = tm.tutorid
+            -- below is to find specific gender of the tutors
+ 			-- and tm.sex = "女" 
+			and ( ( c.location_districts like '%青衣%') or (tm.tutdistrict like '%青衣%') )
+		-- below is to make sure every tutors are unique
+		group by tutor_id
+		-- end: join case info
+	) firstVersion
