@@ -1,0 +1,6 @@
+SELECT major, count(case_id) as applied_times FROM hktuehk1_tutorcircle.tutormas tm
+	left join hktuehk1_tutorcircle.case_tutor ct
+		on tutorid = tutor_id
+	where ct.apply_date >= '2022-10-23' and ct.apply_date <= '2022-11-23'
+	and ( ct.status in (3, 4, 5) or id is null)
+	group by major
