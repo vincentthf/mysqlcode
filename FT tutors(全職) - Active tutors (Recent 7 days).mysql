@@ -1,0 +1,14 @@
+select count(*) from
+(
+	SELECT tutor_id, count(case_id) as apply_times FROM hktuehk1_tutorcircle.case_tutor ct
+		join hktuehk1_tutorcircle.cases c
+			on ct.case_id = c.id
+		join hktuehk1_tutorcircle.tutormas tm
+			on ct.tutor_id = tm.tutorid
+	where apply_date >= '2022-11-21' and apply_date <= '2022-11-28'
+    and ct.status in (3, 4, 5)
+    and tutor_id > 0
+    and tm.tags like '全職補習導師'
+    group by tutor_id
+) test1
+where apply_times > 1
