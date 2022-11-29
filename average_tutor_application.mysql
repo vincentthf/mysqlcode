@@ -1,0 +1,15 @@
+select avg(apply_times) from
+(
+	select case_id, count(tutor_id) as apply_times from 
+	(
+		SELECT c.id as case_id, ct.tutor_id as tutor_id FROM hktuehk1_tutorcircle.cases c
+			left join hktuehk1_tutorcircle.case_tutor ct
+				on c.id = ct.case_id
+			where ( ct.status in (3, 4, 5) or ct.status is null )
+			and ( tutor_id > 0 or tutor_id is null )
+            and ( subject = 'english' or subject_1 = 'english' )
+            and c.date >= '2022-11-07' and c.date < '2022-11-14'
+			order by date desc
+	) test1
+	group by case_id
+) test2
