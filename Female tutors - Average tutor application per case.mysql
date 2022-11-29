@@ -1,0 +1,8 @@
+	SELECT case_id, count(status) FROM hktuehk1_tutorcircle.case_tutor ct
+	join hktuehk1_tutorcircle.tutormas tm
+		on ct.tutor_id = tm.tutorid
+	where ct.tutor_id > 0
+    and ct.status in (3, 4, 5)
+    and tm.sex = '女'
+    and ct.apply_date >= '2022-11-27' and ct.apply_date < '2022-11-29'
+    group by case_id
