@@ -9,7 +9,7 @@ select case_id, SUM(case when tutor_gender = '女' then 1 else 0 end) as female_
 				on ct.tutor_id = tm.tutorid
 			where ( ct.status in (3, 4, 5) or ct.status is null )
 			and ( tutor_id > 0 or tutor_id is null )
-			and c.date >= '2022-11-07' and c.date < '2022-11-14'
+			and c.date >= '2022-11-21' and c.date < '2022-11-28'
 			order by date desc
 	) test1
 	group by case_id
