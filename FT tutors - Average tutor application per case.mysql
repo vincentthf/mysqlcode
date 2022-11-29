@@ -1,0 +1,16 @@
+select avg(ft_tutor_amount) from 
+(
+select case_id, SUM(case when tags like '全職補習導師' then 1 else 0 end) as ft_tutor_amount from 
+	(
+		SELECT c.id as case_id, ct.tutor_id as tutor_id, tm.sex as tutor_gender, tm.tags as tags FROM hktuehk1_tutorcircle.cases c
+			left join hktuehk1_tutorcircle.case_tutor ct
+				on c.id = ct.case_id
+			left join hktuehk1_tutorcircle.tutormas tm
+				on ct.tutor_id = tm.tutorid
+			where ( ct.status in (3, 4, 5) or ct.status is null )
+			and ( tutor_id > 0 or tutor_id is null )
+			and c.date >= '2022-11-21' and c.date < '2022-11-28'
+			order by date desc
+	) test1
+	group by case_id
+) test2
