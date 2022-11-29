@@ -9,4 +9,4 @@ select count(*) from
     and ( subject_1 = 'chinese' or subject = 'chinese' )
     group by tutor_id
 ) test1
-where apply_times > 2
+where apply_times > 1
