@@ -1,0 +1,14 @@
+select * from 
+(
+	SELECT tutor_id, avg(ct.response_fee) FROM hktuehk1_tutorcircle.case_tutor ct
+	join hktuehk1_tutorcircle.cases c
+		on ct.case_id = c.id
+	join hktuehk1_tutorcircle.tutormas tm
+		on ct.tutor_id = tm.tutorid
+	where ct.status in (3, 4, 5)
+    and ( c.subject = 'chemistry' or c.subject_1 = 'chemistry' )
+    and c.year in ('f4', 'f5', 'f6')
+    and date >= '2022-11-12' and date < '2022-11-26'
+    and tm.tutdistrict like '%鰂魚涌%'
+    group by tutor_id
+) test1
