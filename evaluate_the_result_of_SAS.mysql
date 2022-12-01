@@ -1,0 +1,3 @@
+SELECT tutorial_fee, model_recommendprice, tutorgrade_requirement FROM hktuehk1_tutorcircle.cases
+	where model_recommendprice is not null
+    order by date desc
