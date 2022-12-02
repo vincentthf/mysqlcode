@@ -1,0 +1,47 @@
+select tutorId, phoneno from
+(
+	select * from 
+	(
+		SELECT 
+			tutor_id as tutorId, 
+            sex,
+			tm.phoneno, 
+			avg(ct.response_fee),
+ 			group_concat(c.location_districts) as applied_case_location
+	--         group_concat(tm.tutdistrict) as tutor_available_locations 
+		FROM hktuehk1_tutorcircle.case_tutor ct
+		join hktuehk1_tutorcircle.cases c
+			on ct.case_id = c.id
+		join hktuehk1_tutorcircle.tutormas tm
+			on ct.tutor_id = tm.tutorid
+		where ct.status in (3, 4, 5)
+		and date >= '2022-11-11' and date < '2022-11-19'
+		group by tutor_id
+	) t1
+	where 
+		(
+			applied_case_location like '%大圍%' or
+			applied_case_location like '%小瀝源%' or
+			applied_case_location like '%火炭%' or
+			applied_case_location like '%烏溪沙%' or
+			applied_case_location like '%石門%' or
+			applied_case_location like '%馬料水%' or
+			applied_case_location like '%馬鞍山%' or
+			applied_case_location like '%大水坑%' or
+ 			applied_case_location like '%恆安%' or
+            applied_case_location like '%沙田%' or
+ 			applied_case_location like '%沙田圍%' or
+            applied_case_location like '%第一城%' or
+ 			applied_case_location like '%車公廟%' or
+			applied_case_location like '%顯徑%' 
+		)
+) t2
+join hktuehk1_tutorcircle.case_tutor ct2
+	on tutorId = ct2.tutor_id
+join hktuehk1_tutorcircle.cases c2
+	on ct2.case_id = c2.id
+where c2.date >= '2022-10-19' and c2.date < '2022-11-19'
+and ( subject = 'all' or subject_1 = 'all' )
+and c2.year in ('p1', 'p2', 'p3')
+and sex = '女'
+group by tutorId
