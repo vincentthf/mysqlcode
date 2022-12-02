@@ -12,3 +12,26 @@ select * from
     and tm.tutdistrict like '%鰂魚涌%'
     group by tutor_id
 ) test1
+
+
+select * from 
+(
+	SELECT tutor_id, tm.phoneno, avg(ct.response_fee), group_concat(c.location_districts) as applied_case_location, group_concat(tm.tutdistrict) as tutor_available_locations FROM hktuehk1_tutorcircle.case_tutor ct
+	join hktuehk1_tutorcircle.cases c
+		on ct.case_id = c.id
+	join hktuehk1_tutorcircle.tutormas tm
+		on ct.tutor_id = tm.tutorid
+	where ct.status in (3, 4, 5)
+    and ( c.subject = 'english' or c.subject_1 = 'english' )
+    and c.year in ('f4', 'f5', 'f6')
+    and date >= '2022-11-25' and date < '2022-12-03'
+	-- and ( 
+-- 		(tm.tutdistrict like '%筲箕灣%' or tm.tutdistrict like '%筲箕灣%') or     
+-- 		c.location_districts like '%筲箕灣%'
+-- 	)
+	-- and tm.sex = '女'
+    -- and c.service = 'hkdse'
+    -- and tm.DSE_math in ('4', '5', '5*', '5**')
+    -- also the avg.response fee is lower than the upper limit of the price of the case
+    group by tutor_id
+) test1
