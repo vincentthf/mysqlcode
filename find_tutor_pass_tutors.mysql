@@ -1,0 +1,4 @@
+SELECT tutor_id, phoneno, start_date, duration FROM hktuehk1_tutorcircle.tutorpass tp
+	join hktuehk1_tutorcircle.tutormas tm
+		on tp.tutor_id = tm.tutorid
+	where start_date + interval duration DAY > '2022-12-06'
