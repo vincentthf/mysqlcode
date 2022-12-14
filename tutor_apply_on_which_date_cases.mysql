@@ -1,0 +1,7 @@
+SELECT count(*) FROM hktuehk1_tutorcircle.case_tutor ct
+	join hktuehk1_tutorcircle.cases c
+		on ct.case_id = c.id
+	where apply_date >= '2022-12-12' and apply_date < '2022-12-13'
+    and ct.status in (3, 4, 5)
+    and tutor_id > 0
+    and c.date >= '2022-12-05' and c.date < '2022-12-13'
