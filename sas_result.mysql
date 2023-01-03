@@ -14,3 +14,4 @@ SELECT count(*) FROM hktuehk1_tutorcircle.cases
     )
     and year in ('f1', 'f2', 'f3')
 	and status in (5, 8)
+	    and model_recommendprice is null
