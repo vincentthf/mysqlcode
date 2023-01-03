@@ -1,0 +1,16 @@
+-- using SAS
+SELECT count(*) FROM hktuehk1_tutorcircle.cases
+	where model_recommendprice is not null
+    and date >= '2022-12-12' and date < '2022-12-26'
+    
+-- without using SAS
+SELECT count(*) FROM hktuehk1_tutorcircle.cases
+	where date >= '2022-12-12' and date < '2022-12-26'
+    and format = 1
+    and location_type != 'online'
+    and (
+		subject in ('chinese', 'mathematics', 'english') or
+        subject_1 in ('chinese', 'mathematics', 'english')
+    )
+    and year in ('f1', 'f2', 'f3')
+	and status in (5, 8)
