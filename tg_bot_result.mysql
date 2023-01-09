@@ -1,0 +1,6 @@
+SELECT tutor_id FROM hktuehk1_tutorcircle.case_tutor
+	where apply_date >= '2023-01-02' and apply_date < '2023-01-09'
+    and telegram = 2
+    and status in (3, 4, 5)
+    
+    -- then use pivot table to calculate
