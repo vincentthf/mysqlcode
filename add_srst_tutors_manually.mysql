@@ -1,0 +1,13 @@
+SELECT tutor_id as tutor_id FROM hktuehk1_tutorcircle.case_tutor ct
+	join hktuehk1_tutorcircle.cases c
+		on ct.case_id = c.id
+	join hktuehk1_tutorcircle.tutormas tm
+		on ct.tutor_id = tm.tutorid
+	where apply_date >= '2022-12-12' and apply_date < '2023-01-14'
+    and (subject = 'english' or subject_1 = 'english')
+    and ct.status in (3, 4, 5)
+	and tutor_id > 0
+    and response_fee > 0
+    and isBlacklist = 0
+    and completed = true
+    group by tutor_id
