@@ -1,0 +1,12 @@
+select count(*) from
+(
+	SELECT tutor_id, count(case_id) as apply_times FROM hktuehk1_tutorcircle.case_tutor ct
+           join hktuehk1_tutorcircle.cases c
+	     on ct.case_id = c.id
+	where apply_date >= '2023-02-06' and apply_date < '2023-02-13'
+    and ct.status in (3, 4, 5)
+    and tutor_id > 0
+    and ( subject_1 = 'all' or subject = 'all' )
+    group by tutor_id
+) test1
+where apply_times > 1
