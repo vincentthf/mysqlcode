@@ -1,0 +1,1 @@
+SELECT count(*) FROM hktuehk1_tutorcircle.tg_bot_config;
