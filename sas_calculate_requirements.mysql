@@ -1,0 +1,11 @@
+SELECT c.id as case_id, c.date, c.confirmed_tutorial_fee FROM hktuehk1_tutorcircle.cases c
+	join hktuehk1_tutorcircle.case_tutor ct
+		on c.id = ct.case_id
+	join hktuehk1_tutorcircle.tutormas tm
+		on ct.tutor_id = tm.tutorid
+	where c.status in (5, 8)
+    and format = 1
+    and location_type != 'online'
+    and c.chosen_tutor = tm.tutorid
+    and tm.tags like '%全職補習導師%'
+    and date >= '2022-02-14' and date <= '2023-02-15'
