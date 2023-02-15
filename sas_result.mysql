@@ -1,17 +1,25 @@
--- using SAS
+-- number of the case which triggered SAS
 SELECT count(*) FROM hktuehk1_tutorcircle.cases
 	where model_recommendprice is not null
-    and date >= '2022-12-12' and date < '2022-12-26'
+ 	and date >= '2022-12-12' and date < '2022-12-26'
     
--- without using SAS
+-- number of the successful case which triggered SAS
+SELECT count(*) FROM hktuehk1_tutorcircle.cases
+	where model_recommendprice is not null
+	and status in (5, 8)
+    	and date >= '2022-12-12' and date < '2022-12-26'
+    
+-- number of the case which didn't trigger SAS
 SELECT count(*) FROM hktuehk1_tutorcircle.cases
 	where date >= '2022-12-12' and date < '2022-12-26'
-    and format = 1
-    and location_type != 'online'
-    and (
-		subject in ('chinese', 'mathematics', 'english') or
-        subject_1 in ('chinese', 'mathematics', 'english')
-    )
-    and year in ('f1', 'f2', 'f3')
+    	and format = 1
+    	and location_type != 'online'
+	and model_recommendprice is null
+	
+-- number of the successful case which didn't trigger SAS
+SELECT count(*) FROM hktuehk1_tutorcircle.cases
+	where date >= '2022-12-12' and date < '2022-12-26'
+    	and format = 1
+    	and location_type != 'online'
 	and status in (5, 8)
-	    and model_recommendprice is null
+	and model_recommendprice is null
