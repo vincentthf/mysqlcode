@@ -1,0 +1,11 @@
+SELECT count(*) FROM hktuehk1_tutorcircle.tutormas
+	where (tutdistrict like '%佐敦%'or 
+            tutdistrict like '%太子%'or 
+            tutdistrict like '%尖沙咀%'or 
+            tutdistrict like '%旺角%'or 
+            tutdistrict like '%油麻地%'or 
+            tutdistrict like '%大角咀%'or 
+            tutdistrict like '%奧運%' or
+			tutdistrict like '%柯士甸%' 
+	) 
+	and createdate >= '2022-02-13' and createdate < '2023-02-15'
