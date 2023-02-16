@@ -1,14 +1,15 @@
+-- to find out the tutors who have applied for the specific district cases
+
 select tutorId, phoneno from
 (
 	select * from 
 	(
 		SELECT 
 			tutor_id as tutorId, 
-            sex,
+            		sex,
 			tm.phoneno, 
 			avg(ct.response_fee),
  			group_concat(c.location_districts) as applied_case_location
-	--         group_concat(tm.tutdistrict) as tutor_available_locations 
 		FROM hktuehk1_tutorcircle.case_tutor ct
 		join hktuehk1_tutorcircle.cases c
 			on ct.case_id = c.id
@@ -29,9 +30,9 @@ select tutorId, phoneno from
 			applied_case_location like '%馬鞍山%' or
 			applied_case_location like '%大水坑%' or
  			applied_case_location like '%恆安%' or
-            applied_case_location like '%沙田%' or
+            		applied_case_location like '%沙田%' or
  			applied_case_location like '%沙田圍%' or
-            applied_case_location like '%第一城%' or
+            		applied_case_location like '%第一城%' or
  			applied_case_location like '%車公廟%' or
 			applied_case_location like '%顯徑%' 
 		)
