@@ -4,28 +4,28 @@ select tutorId, phoneno, tutor_avg_fee, tutors_living_location, applied_case_loc
 	(
 		SELECT 
 			tutor_id as tutorId, 
-            sex,
+            		sex,
 			tm.phoneno, 
-            tm.DSE_business as DSE,
+            		tm.DSE_business as DSE,
 			avg(ct.response_fee) as tutor_avg_fee,
  			group_concat(c.location_districts) as applied_case_location,
-            tm.district as tutors_living_location
+			tm.district as tutors_living_location
 		FROM hktuehk1_tutorcircle.case_tutor ct
 		join hktuehk1_tutorcircle.cases c
 			on ct.case_id = c.id
 		join hktuehk1_tutorcircle.tutormas tm
 			on ct.tutor_id = tm.tutorid
 		where ct.status in (3, 4, 5)
-        and c.location_type != 'online'
+	 	and c.location_type != 'online'
 		and date >= '2022-11-28' and date < '2022-12-07'
 		group by tutor_id
 	) t1
-	where 
+		where 
 		(
 			tutors_living_location like '%上水%' or
-            tutors_living_location like '%打鼓嶺%' or
-            tutors_living_location like '%沙頭角%' or
-            tutors_living_location like '%粉嶺%'
+            		tutors_living_location like '%打鼓嶺%' or
+		 	tutors_living_location like '%沙頭角%' or
+			tutors_living_location like '%粉嶺%'
 		)
 ) t2
 join hktuehk1_tutorcircle.case_tutor ct2
