@@ -38,3 +38,5 @@ and c2.year in ('p4', 'p5', 'p6')
 -- and DSE in ('5**')
 -- and sex = '男'
 group by tutorId
+
+-- 
