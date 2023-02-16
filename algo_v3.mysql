@@ -1,4 +1,4 @@
--- to find out the tutors who have applied for the specific district cases
+-- the query is mainly to find out the tutors who have applied for the specific district cases recently
 
 select tutorId, phoneno from
 (
@@ -16,7 +16,7 @@ select tutorId, phoneno from
 		join hktuehk1_tutorcircle.tutormas tm
 			on ct.tutor_id = tm.tutorid
 		where ct.status in (3, 4, 5)
-		and date >= '2022-11-11' and date < '2022-11-19'
+		and ct.apply_date >= '2022-11-11' and ct.apply_date < '2022-11-19' -- the tutors who have applied for the specific cases in 7 days, you could change the time range if it's needed
 		group by tutor_id
 	) t1
 	where 
@@ -42,7 +42,7 @@ join hktuehk1_tutorcircle.case_tutor ct2
 join hktuehk1_tutorcircle.cases c2
 	on ct2.case_id = c2.id
 where c2.date >= '2022-10-19' and c2.date < '2022-11-19'
-and ( subject = 'all' or subject_1 = 'all' )
-and c2.year in ('p1', 'p2', 'p3')
-and sex = '女'
+and ( subject = 'all' or subject_1 = 'all' ) -- change the subject
+and c2.year in ('p1', 'p2', 'p3') -- change the year
+and sex = '女' -- change the gender if the case needs specific gender for tutor
 group by tutorId
